@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { classname as cx } from 'lib/utils';
-import { Box, Notify } from 'lib/components';
+import { Shell, Notify } from 'lib/components';
 
 import './assets.css';
 
@@ -21,7 +21,7 @@ const Asset = (props) => {
   }, [importString, onClick, name]);
 
   return (
-    <Box
+    <Shell
       gap="8px"
       display="flex"
       flexDirection="column"
@@ -30,7 +30,7 @@ const Asset = (props) => {
     >
       <Notify ref={notifyRef} />
 
-      <Box
+      <Shell
         component="img"
         src={src}
         width={size}
@@ -41,15 +41,15 @@ const Asset = (props) => {
           active && 'dev-assets-asset-clicked',
         )}
       />
-      <Box
+      <Shell
         textAlign="center"
         fontFamily="monospace"
         fontSize={14}
         fontWeight={800}
       >
         {name}
-      </Box>
-    </Box>
+      </Shell>
+    </Shell>
   );
 };
 
@@ -84,7 +84,7 @@ const Assets = (props) => {
   }, [getModules, loading, source]);
 
   return (
-    <Box
+    <Shell
       height="100%"
       display="flex"
       gap="16px"
@@ -92,7 +92,7 @@ const Assets = (props) => {
       className="dev-assets-root"
     >
       {(!loading && source) && (
-        <Box className="dev-assets-container">
+        <Shell className="dev-assets-container">
           {source.map((s) => (
             <Asset
               key={s.name}
@@ -103,9 +103,9 @@ const Assets = (props) => {
               active={lastClicked === s.name}
             />
           ))}
-        </Box>
+        </Shell>
       )}
-    </Box>
+    </Shell>
   );
 };
 

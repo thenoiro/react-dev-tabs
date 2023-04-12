@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
-import { Modal } from 'lib/components';
+import { Overlap } from 'lib/components';
 import DevKitContent from 'lib/views/DevKitContent';
 
 import './devKit.css';
@@ -65,12 +65,12 @@ const DevKit = (props) => {
   }
   const children = (
     <div className="dev-root">
-      <Modal
+      <Overlap
         open={open}
         onClose={() => setOpen(false)}
       >
         <DevKitContent open={open} {...props} />
-      </Modal>
+      </Overlap>
     </div>
   );
   return ReactDOM.createPortal(children, container);

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { classname as cx } from 'lib/utils';
-import Box from 'lib/components/Box';
+import Shell from 'lib/components/Shell';
 
 import './fieldset.css';
 
@@ -9,9 +9,9 @@ const Fieldset = (props) => {
   const { children } = props;
 
   return (
-    <Box display="flex" flexWrap="wrap" mb={2} gap="8px">
+    <Shell display="flex" flexWrap="wrap" mb={2} gap="8px">
       {children}
-    </Box>
+    </Shell>
   );
 };
 
@@ -32,7 +32,7 @@ const Field = (props) => {
   }, [onChange]);
 
   return (
-    <Box
+    <Shell
       {...rest}
       display="flex"
       component="fieldset"
@@ -41,17 +41,17 @@ const Field = (props) => {
       borderRadius="4px"
       flexWrap={grid ? 'wrap' : undefined}
     >
-      <Box
+      <Shell
         display="flex"
         alignItems="center"
         component="legend"
         className="dev-fieldset-legend"
       >
         {legend}
-      </Box>
+      </Shell>
 
       {Array.isArray(options) && options.map((opt) => (
-        <Box
+        <Shell
           mr={2}
           key={String(opt)}
           display="inline-flex"
@@ -63,7 +63,7 @@ const Field = (props) => {
             opt === value && 'dev-fieldset-option-current',
           )}
         >
-          <Box
+          <Shell
             mt={0}
             type="radio"
             component="input"
@@ -72,7 +72,7 @@ const Field = (props) => {
             onChange={handleChange(opt)}
             className="dev-fieldset-checkbox"
           />
-          <Box
+          <Shell
             ml={1}
             fontSize={13}
             component="span"
@@ -81,10 +81,10 @@ const Field = (props) => {
             className="dev-fieldset-label"
           >
             {String(opt)}
-          </Box>
-        </Box>
+          </Shell>
+        </Shell>
       ))}
-    </Box>
+    </Shell>
   );
 };
 

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { classname as cx } from 'lib/utils';
-import { Box } from 'lib/components';
+import { Shell } from 'lib/components';
 
 import './code.css';
 
@@ -21,26 +21,34 @@ const Code = (props) => {
       return Math.min(res, currentOffset);
     }, Infinity);
 
-    return strings.map((str) => {
-      if (!str.trim()) {
-        return str;
-      }
-      return str.slice(offset);
-    }).join('\n');
+    if (!strings[strings.length - 1].trim()) {
+      strings.pop();
+    }
+    if (!strings[0].trim()) {
+      strings.shift();
+    }
+    return strings
+      .map((str) => {
+        if (!str.trim()) {
+          return str;
+        }
+        return str.slice(offset);
+      })
+      .join('\n');
   }, [children]);
 
   if (typeof content !== 'string') {
     return null;
   }
   return (
-    <Box
+    <Shell
       {...rest}
       display={display}
       component="pre"
       className={cx('dev-code-root', className)}
     >
       {content}
-    </Box>
+    </Shell>
   );
 };
 

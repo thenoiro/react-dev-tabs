@@ -1,11 +1,11 @@
 import { classname as cx } from 'lib/utils';
-import { Button } from 'lib/components';
+import { Btn } from 'lib/components';
 
-const IconButton = (props) => {
+const IconBtn = (props) => {
   const { children, size = 40, className, ...rest } = props;
 
   return (
-    <Button
+    <Btn
       className={cx('dev-button', className)}
       {...rest}
       width={size}
@@ -14,8 +14,8 @@ const IconButton = (props) => {
       borderRadius="50%"
     >
       {children}
-    </Button>
+    </Btn>
   )
 };
 
-export default IconButton;
+export default IconBtn;

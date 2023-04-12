@@ -10,7 +10,7 @@ const Tag = memo(forwardRef((props, ref) => {
   );
 }));
 
-const Box = forwardRef((props, ref) => {
+const Shell = forwardRef((props, ref) => {
   const {
     m,
     mt,
@@ -133,4 +133,4 @@ const Box = forwardRef((props, ref) => {
   );
 });
 
-export default Box;
+export default Shell;

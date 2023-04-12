@@ -1,16 +1,16 @@
 import { classname as cx } from 'lib/utils';
-import { Box } from 'lib/components';
+import { Shell } from 'lib/components';
 
-import './tabs.css';
+import './topics.css';
 
-const Tabs = (props) => {
+const Topics = (props) => {
   const { value, onValue, options } = props;
 
   return (
     <div className="dev-tabs-root">
       <div className="dev-tabs-container">
         {options.map((opt) => (
-          <Box
+          <Shell
             p={1}
             px={4}
             key={opt.value}
@@ -18,11 +18,11 @@ const Tabs = (props) => {
             className={cx('dev-tabs-tab', value === opt.value && 'dev-tabs-tab-current')}
           >
             {opt.label}
-          </Box>
+          </Shell>
         ))}
       </div>
     </div>
   );
 };
 
-export default Tabs;
+export default Topics;

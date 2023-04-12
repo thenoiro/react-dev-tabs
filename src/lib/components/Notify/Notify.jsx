@@ -2,7 +2,7 @@ import { forwardRef, useCallback, useEffect, useImperativeHandle, useState } fro
 import ReactDOM from 'react-dom';
 
 import { classname as cx } from 'lib/utils';
-import Box from 'lib/components/Box';
+import Shell from 'lib/components/Shell';
 
 import './notify.css';
 
@@ -51,7 +51,7 @@ const Notify = forwardRef((props, ref) => {
     return null;
   }
   const content = (
-    <Box
+    <Shell
       px={1}
       py={0.5}
       {...coords}
@@ -61,7 +61,7 @@ const Notify = forwardRef((props, ref) => {
     >
       <strong>COPIED: </strong>
       <span>{text}</span>
-    </Box>
+    </Shell>
   );
   return ReactDOM.createPortal(content, container);
 });

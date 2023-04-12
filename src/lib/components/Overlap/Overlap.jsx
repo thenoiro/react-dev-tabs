@@ -2,11 +2,11 @@ import { useCallback, useEffect } from 'react';
 
 import { cross } from 'lib/assets';
 import { classname } from 'lib/utils';
-import { IconButton, Box } from 'lib/components';
+import { IconBtn, Shell } from 'lib/components';
 
-import './modal.css';
+import './overlap.css';
 
-const Modal = (props) => {
+const Overlap = (props) => {
   const { open, onClose, children } = props;
 
   const rootClasses = classname('dev-modal-root', open && 'dev-modal-open');
@@ -38,7 +38,7 @@ const Modal = (props) => {
       onClick={handleRootClick}
     >
       <div className="dev-modal-container">
-        <IconButton
+        <IconBtn
           top="-15px"
           right="-15px"
           position="absolute"
@@ -46,14 +46,14 @@ const Modal = (props) => {
           size={40}
         >
           <img src={cross} />
-        </IconButton>
+        </IconBtn>
 
-        <Box height="100%" overflow="hidden">
+        <Shell height="100%" overflow="hidden">
           {children}
-        </Box>
+        </Shell>
       </div>
     </div>
   );
 };
 
-export default Modal;
+export default Overlap;

@@ -1,6 +1,6 @@
 import { Suspense, lazy, useMemo, useState } from 'react';
 
-import { Box, Tabs } from 'lib/components';
+import { Shell, Topics } from 'lib/components';
 
 const Components = lazy(() => import('lib/views/Components'));
 const Assets = lazy(() => import('lib/views/Assets'));
@@ -49,14 +49,14 @@ const DevKitContent = (props) => {
   const [tab, setTab] = useState(options?.[0]?.value);
 
   return (
-    <Box height="100%" display="flex" flexDirection="column">
-      <Tabs
+    <Shell height="100%" display="flex" flexDirection="column">
+      <Topics
         value={tab}
         onValue={setTab}
         options={options}
       />
 
-      <Box mt={2} height="100%" maxHeight="100%" overflow="hidden">
+      <Shell mt={2} height="100%" maxHeight="100%" overflow="hidden">
         {options.map(({ Component, ...opt}) => (
           <Pane
             key={opt.value}
@@ -65,8 +65,8 @@ const DevKitContent = (props) => {
             props={{ open, ...opt }}
           />
         ))}
-      </Box>
-    </Box>
+      </Shell>
+    </Shell>
   );
 };
 

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { Box, List } from 'lib/components';
+import { Shell, Catalog } from 'lib/components';
 import ComponentBox from 'lib/views/ComponentBox';
 
 import './components.css';
@@ -55,7 +55,7 @@ const Components = (props) => {
   }, []);
 
   return (
-    <Box
+    <Shell
       height="100%"
       display="flex"
       gap="16px"
@@ -63,32 +63,32 @@ const Components = (props) => {
     >
       {(!loading && source) && (
         <>
-          <Box className="dev-components-list">
-            <List
+          <Shell className="dev-components-list">
+            <Catalog
               options={listOptions}
               onItemClick={handleScroll}
             />
-          </Box>
+          </Shell>
 
-          <Box
+          <Shell
             overflowX="hidden"
             overflow="auto"
             flexGrow={1}
           >
-            <Box pr={1} overflow="hidden">
+            <Shell pr={1} overflow="hidden">
               {source.map((s) => (
-                <Box key={s.name} mb={2}>
+                <Shell key={s.name} mb={2}>
                   <ComponentBox
                     refs={componentsRefs}
                     {...s}
                   />
-                </Box>
+                </Shell>
               ))}
-            </Box>
-          </Box>
+            </Shell>
+          </Shell>
         </>
       )}
-    </Box>
+    </Shell>
   );
 };
 

@@ -1,7 +1,7 @@
 import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 
 import { classname as cx } from 'lib/utils';
-import { Box } from 'lib/components';
+import { Shell } from 'lib/components';
 
 import './componentBox.css';
 
@@ -44,7 +44,7 @@ const ComponentBox = (props) => {
       </summary>
 
       <div className="dev-component-box-content">
-        <Box px={2} py={1}>
+        <Shell px={2} py={1}>
           {demoExist && open && (
             <Suspense fallback="Loading...">
               <Component.Demo open={open} />
@@ -56,7 +56,7 @@ const ComponentBox = (props) => {
               No demo provided...
             </div>
           )}
-        </Box>
+        </Shell>
       </div>
     </details>
   );

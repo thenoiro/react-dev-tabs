@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react';
 
 import { classname as cx } from 'lib/utils';
-import Box from 'lib/components/Box';
+import Shell from 'lib/components/Shell';
 
-import './list.css';
+import './catalog.css';
 
-const List = (props) => {
+const Catalog = (props) => {
   const { options, onItemClick } = props;
 
   const [lastClicked, setLastClicked] = useState(null);
@@ -16,9 +16,9 @@ const List = (props) => {
   }, [onItemClick]);
 
   return (
-    <Box overflow="auto">
+    <Shell overflow="auto">
       {options.map((opt) => (
-        <Box
+        <Shell
           px={2}
           py={1}
           key={opt.value}
@@ -29,10 +29,10 @@ const List = (props) => {
           )}
         >
           {opt.label}
-        </Box>
+        </Shell>
       ))}
-    </Box>
+    </Shell>
   );
 };
 
-export default List;
+export default Catalog;
