@@ -1,0 +1,33 @@
+.dev-modal-root {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--dev-color-backdrop-800);
+  top: 0px;
+  left: 0px;
+  z-index: 2147483648;
+  visibility: hidden;
+  opacity: 0;
+  transition-duration: 200ms;
+}
+.dev-modal-root.dev-modal-open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.dev-modal-container {
+  position: absolute;
+  border-radius: 8px;
+  padding: 16px;
+  top: 20px;
+  left: 20px;
+  background-color: var(--dev-color-background-main);
+  width: calc(100vw - 40px);
+  height: calc(100vh - 40px);
+  opacity: 0;
+  transition-duration: 200ms;
+}
+.dev-modal-open .dev-modal-container {
+  opacity: 1;
+}
+

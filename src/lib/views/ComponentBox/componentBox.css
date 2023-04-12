@@ -1,0 +1,27 @@
+.dev-component-box {
+  border: 1px solid var(--dev-color-shadow-300);
+}
+.dev-component-box-header {
+  font-family: monospace;
+  cursor: pointer;
+  background: var(--dev-color-shadow-100);
+  padding: 8px 16px;
+  font-weight: 800;
+  list-style: none;
+  transition-duration: 200ms;
+}
+.dev-component-box-header:hover {
+  color: var(--dev-color-primary-main);
+  background-color: var(--dev-color-shadow-200);
+}
+.dev-component-box[open] .dev-component-box-header {
+  color: var(--dev-color-primary-main);
+}
+.dev-component-box[open] .dev-component-box-header:hover {
+  color: var(--dev-color-primary-dark);
+}
+.dev-component-box-content {
+  overflow: hidden;
+  transition-duration: 500ms;
+  transition-property: all;
+}

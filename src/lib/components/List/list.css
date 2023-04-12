@@ -1,0 +1,16 @@
+.dev-list-item {
+  cursor: pointer;
+  font-family: monospace;
+  font-weight: 900;
+  color: var(--dev-color-primary-main);
+  transition-duration: 200ms;
+  background-color: transparent;
+  letter-spacing: -0.02em;
+}
+.dev-list-item:hover {
+  color: var(--dev-color-primary-dark);
+  background-color: var(--dev-color-shadow-100);
+}
+.dev-list-item-last-clicked {
+  color: var(--dev-color-text-dark);
+}
