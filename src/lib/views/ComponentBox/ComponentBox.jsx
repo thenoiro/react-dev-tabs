@@ -1,12 +1,14 @@
 import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 
-import './componentBox.css';
+import { classname as cx } from 'lib/utils';
 import { Box } from 'lib/components';
+
+import './componentBox.css';
 
 const ComponentBox = (props) => {
   const { name, Component, refs } = props;
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const titleRef = useRef();
 
   const demoExist = !!Component?.Demo;
@@ -36,14 +38,14 @@ const ComponentBox = (props) => {
     >
       <summary
         ref={titleRef}
-        className="dev-component-box-header"
+        className={cx('dev-component-box-header', !demoExist && 'dev-component-no-demo')}
       >
         {`<${name} />`}
       </summary>
 
       <div className="dev-component-box-content">
         <Box px={2} py={1}>
-          {demoExist && (
+          {demoExist && open && (
             <Suspense fallback="Loading...">
               <Component.Demo open={open} />
             </Suspense>

@@ -7,3 +7,4 @@ export { default as Tabs } from './Tabs';
 export { default as List } from './List';
 export { default as Fieldset } from './Fieldset';
 export { default as Notify } from './Notify';
+export { default as Code } from './Code';

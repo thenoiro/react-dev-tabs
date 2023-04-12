@@ -11,7 +11,7 @@ const Dev = (props) => {
     return null;
   }
   return (
-    <Suspense fallback="Loading...">
+    <Suspense fallback={null}>
       <DevKit {...rest} />
     </Suspense>
   );
