@@ -21,6 +21,7 @@
   padding: 16px;
   top: 20px;
   left: 20px;
+  box-sizing: border-box;
   background-color: var(--dev-color-background-main);
   width: calc(100vw - 40px);
   height: calc(100vh - 40px);

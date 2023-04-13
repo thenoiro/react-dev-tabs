@@ -6,6 +6,8 @@
   transition-duration: 200ms;
   background-color: transparent;
   letter-spacing: -0.02em;
+  font-family: sans-serif;
+  font-size: 16px;
 }
 .dev-list-item:hover {
   color: var(--dev-color-primary-dark);

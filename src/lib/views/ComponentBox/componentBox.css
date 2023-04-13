@@ -9,6 +9,7 @@
   font-weight: 800;
   list-style: none;
   transition-duration: 200ms;
+  font-size: 16px;
 }
 .dev-component-box-header:hover {
   color: var(--dev-color-primary-main);

@@ -3,6 +3,7 @@
   overflow: hidden;
   overflow-x: auto;
   padding-bottom: 4px;
+  font-family: sans-serif;
 }
 .dev-tabs-container {
   display: flex;

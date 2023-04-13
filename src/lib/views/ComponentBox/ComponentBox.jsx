@@ -52,9 +52,9 @@ const ComponentBox = (props) => {
           )}
 
           {!demoExist && (
-            <div>
+            <Shell fontFamily="sans-serif" fontStyle="italic" opacity={0.5}>
               No demo provided...
-            </div>
+            </Shell>
           )}
         </Shell>
       </div>
