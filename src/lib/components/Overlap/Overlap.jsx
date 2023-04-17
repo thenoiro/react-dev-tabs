@@ -7,9 +7,14 @@ import { IconBtn, Shell } from 'lib/components';
 import './overlap.css';
 
 const Overlap = (props) => {
-  const { open, onClose, children } = props;
+  const { open, onClose, children, zIndex, viewport } = props;
 
   const rootClasses = classname('dev-modal-root', open && 'dev-modal-open');
+
+  const width = viewport?.width || 'calc(100vw - 40px)';
+  const height = viewport?.height || 'calc(100vh - 40px)';
+  const top = viewport?.top || '20px';
+  const left = viewport?.left || '20px';
 
   const handleRootClick = useCallback((e) => {
     if (e.target === e.currentTarget) {
@@ -33,14 +38,21 @@ const Overlap = (props) => {
   }, [open, onClose]);
 
   return (
-    <div
+    <Shell
+      zIndex={zIndex}
       className={rootClasses}
       onClick={handleRootClick}
     >
-      <div className="dev-modal-container">
+      <Shell
+        width={width}
+        height={height}
+        top={top}
+        left={left}
+        className="dev-modal-container"
+      >
         <IconBtn
-          top="-15px"
-          right="-15px"
+          top="5px"
+          right="5px"
           position="absolute"
           onClick={onClose}
           size={40}
@@ -51,8 +63,8 @@ const Overlap = (props) => {
         <Shell height="100%" overflow="hidden">
           {children}
         </Shell>
-      </div>
-    </div>
+      </Shell>
+    </Shell>
   );
 };
 

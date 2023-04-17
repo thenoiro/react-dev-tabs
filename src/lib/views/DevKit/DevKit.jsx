@@ -7,6 +7,7 @@ import DevKitContent from 'lib/views/DevKitContent';
 import './devKit.css';
 
 const DevKit = (props) => {
+  const { zIndex = 1000, ...rest } = props;
   const [open, setOpen] = useState(false);
   const [container, setContainer] = useState(null);
 
@@ -60,16 +61,17 @@ const DevKit = (props) => {
     };
   }, [open]);
 
-  if (!container) {
+  if (!container || !open) {
     return null;
   }
   const children = (
     <div className="dev-root">
       <Overlap
         open={open}
+        zIndex={zIndex}
         onClose={() => setOpen(false)}
       >
-        <DevKitContent open={open} {...props} />
+        <DevKitContent open={open} {...rest} />
       </Overlap>
     </div>
   );

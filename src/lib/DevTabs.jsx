@@ -5,9 +5,11 @@ const DevKit = lazy(() => import('lib/views/DevKit'));
 const dev = process.env.NODE_ENV === 'development';
 
 const Dev = (props) => {
-  const { ...rest } = props;
+  const { visible, ...rest } = props;
 
-  if (!dev) {
+  const isVisible = typeof visible === 'boolean' ? visible : dev;
+
+  if (!isVisible) {
     return null;
   }
   return (

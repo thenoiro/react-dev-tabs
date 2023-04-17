@@ -7,9 +7,3 @@
   overflow-x: hidden;
   z-index: 2;
 }
-
-@media (max-width: 960px) {
-  .dev-components-list {
-    display: none;
-  }
-}

@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { useMobile } from 'lib/hooks';
 import { Shell, Catalog } from 'lib/components';
 import ComponentBox from 'lib/views/ComponentBox';
 
 import './components.css';
 
 const Components = (props) => {
-  const { modules } = props;
+  const { modules, breakpoints } = props;
 
+  const isMobile = useMobile(breakpoints);
   const [source, setSource] = useState(null);
   const [loading, setLoading] = useState(false);
   const componentsRefs = useRef({});
@@ -63,12 +65,14 @@ const Components = (props) => {
     >
       {(!loading && source) && (
         <>
-          <Shell className="dev-components-list">
-            <Catalog
-              options={listOptions}
-              onItemClick={handleScroll}
-            />
-          </Shell>
+          {!isMobile && (
+            <Shell className="dev-components-list">
+              <Catalog
+                options={listOptions}
+                onItemClick={handleScroll}
+              />
+            </Shell>
+          )}
 
           <Shell
             overflowX="hidden"
