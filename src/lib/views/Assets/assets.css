@@ -2,6 +2,9 @@
   display: flex;
   gap: 16px;
   padding: 16px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-self: flex-start;
 }
 .dev-assets-asset {
   border: 1px solid var(--dev-color-secondary-light);
