@@ -10,6 +10,7 @@
   border-bottom: 2px solid var(--dev-color-shadow-100);
 }
 .dev-tabs-tab {
+  font-size: 12px;
   position: relative;
   font-weight: 800;
   bottom: -2px;

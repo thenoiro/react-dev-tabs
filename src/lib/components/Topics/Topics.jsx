@@ -12,7 +12,7 @@ const Topics = (props) => {
         {options.map((opt) => (
           <Shell
             p={1}
-            px={4}
+            px={2}
             key={opt.value}
             onClick={() => onValue(opt.value)}
             className={cx('dev-tabs-tab', value === opt.value && 'dev-tabs-tab-current')}

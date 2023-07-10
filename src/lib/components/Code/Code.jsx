@@ -21,10 +21,10 @@ const Code = (props) => {
       return Math.min(res, currentOffset);
     }, Infinity);
 
-    if (!strings[strings.length - 1].trim()) {
+    if (strings.length > 0 && !strings[strings.length - 1].trim()) {
       strings.pop();
     }
-    if (!strings[0].trim()) {
+    if (strings.length > 0 && !strings[0].trim()) {
       strings.shift();
     }
     return strings

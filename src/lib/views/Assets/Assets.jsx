@@ -89,6 +89,7 @@ const Assets = (props) => {
       display="flex"
       gap="16px"
       position="relative"
+      overflow="auto"
       className="dev-assets-root"
     >
       {(!loading && source) && (
