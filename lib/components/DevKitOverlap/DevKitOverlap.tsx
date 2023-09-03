@@ -9,6 +9,7 @@ import { OverlapProps } from 'components/Overlap';
 import Header from 'components/Header';
 import Tabs, { TabValue } from 'components/Tabs';
 import OverlapBody from 'components/OverlapBody';
+import Text from 'components/Text';
 
 export interface DevKitOverlapProps extends Pick<OverlapProps, 'zIndex'> {
   zIndex?: number;
@@ -18,7 +19,7 @@ export interface DevKitOverlapProps extends Pick<OverlapProps, 'zIndex'> {
 const defaultTabs: DevKitTab[] = [];
 
 const DevKitOverlap = (props: DevKitOverlapProps) => {
-  const { zIndex, tabs = defaultTabs } = props;
+  const { zIndex = 1000, tabs = defaultTabs } = props;
   const { state: open } = useOverlapState();
   const [tab, setTab] = useState<TabValue>(0);
 
@@ -29,6 +30,14 @@ const DevKitOverlap = (props: DevKitOverlapProps) => {
     width: '100%',
     overflow: 'hidden',
   });
+
+  const emptyClass = useCss((theme) => ({
+    flexGrow: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderTop: `2px solid ${theme.palette.accent.primary.color}`,
+  }));
 
   const options = useMemo(() => {
     return tabs.map((t, index) => {
@@ -44,7 +53,16 @@ const DevKitOverlap = (props: DevKitOverlapProps) => {
       <div className={rootClass}>
         <Header type={tabs[tab]?.type} />
         <Tabs options={options} value={tab} onChange={setTab} />
-        <OverlapBody value={tab} tabs={tabs} open={open} />
+
+        {tabs.length > 0 && (
+          <OverlapBody value={tab} tabs={tabs} open={open} />
+        )}
+
+        {tabs.length === 0 && (
+          <div className={emptyClass}>
+            <Text size="large">No tabs provided</Text>
+          </div>
+        )}
       </div>
     </Overlap>
   );

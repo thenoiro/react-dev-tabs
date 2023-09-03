@@ -1,49 +1,121 @@
+import { useMemo, useState } from 'react';
 import ReactDOM from 'react-dom/client';
-// import DevTabs from 'react-dev-tabs';
-
-// import { Button } from '@/components';
+import DevTabs from 'react-dev-tabs';
 
 const App = () => {
+  const [testCase, setTestCase] = useState('usual');
+  const [zIndex, setZIndex] = useState();
+
+  const tabs = useMemo(() => {
+    switch (testCase) {
+      case 'usual':
+      case 'multiple-tabs':
+      case 'no-tabs':
+      default:
+        return [];
+    }
+  }, [testCase]);
+
   return (
     <div>
-      {/* <Button>Button</Button>
+      <div>Testing React Dev Tabs</div>
+
+      <div style={{ marginTop: 10, display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <label>
+          <input
+            name="test"
+            type="radio"
+            checked={testCase === 'usual'}
+            onChange={() => setTestCase('usual')}
+          />
+
+          <strong>Usual Case</strong>
+        </label>
+
+        <label>
+          <input
+            name="test"
+            type="radio"
+            checked={testCase === 'multiple-tabs'}
+            onChange={() => setTestCase('multiple-tabs')}
+          />
+
+          <strong>Multiple Tabs Case</strong>
+        </label>
+
+        <label>
+          <input
+            name="test"
+            type="radio"
+            checked={testCase === 'no-tabs'}
+            onChange={() => setTestCase('no-tabs')}
+          />
+
+          <strong>No Tabs Case</strong>
+        </label>
+      </div>
+
+      <div style={{ marginTop: 20 }}>
+        <div>Z Index</div>
+
+        <div style={{ marginTop: 10, display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <label>
+            <input
+              name="zIndex"
+              type="radio"
+              checked={zIndex === undefined}
+              onChange={() => setZIndex(undefined)}
+            />
+
+            <strong>undefined</strong>
+          </label>
+
+          <label>
+            <input
+              name="zIndex"
+              type="radio"
+              checked={zIndex === 900}
+              onChange={() => setZIndex(900)}
+            />
+
+            <strong>900</strong>
+          </label>
+
+          <label>
+            <input
+              name="zIndex"
+              type="radio"
+              checked={zIndex === 1100}
+              onChange={() => setZIndex(1100)}
+            />
+
+            <strong>1100</strong>
+          </label>
+        </div>
+
+        <div style={{ marginTop: 20 }}>
+          <div
+            style={{
+              position: 'absolute',
+              zIndex: 950,
+              background: 'red',
+              color: 'white',
+              width: '400px',
+              height: '200px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            Z Index indicator (950)
+          </div>
+        </div>
+      </div>
 
       <DevTabs
-        tabs={[
-          {
-            type: 'components',
-            label: 'Components',
-            modules: () => import('./demo/components'),
-          },
-          {
-            type: 'components',
-            label: 'Views',
-            modules: () => import('./demo/components'),
-          },
-          {
-            type: 'components',
-            label: 'Legacy',
-            variant: 'inside',
-            modules: () => import('./legacy'),
-          },
-          {
-            type: 'assets',
-            label: 'Icons',
-            modules: () => import('./assets/icons/color'),
-          },
-          {
-            type: 'assets',
-            label: 'Logos',
-            modules: () => import('./assets/logos'),
-          },
-          {
-            type: 'assets',
-            label: 'Images',
-            size: 200,
-            modules: () => import('./assets/images'),
-          },
-        ]}
-      /> */}
+        tabs={tabs}
+        zIndex={zIndex}
+      />
     </div>
   );
 };

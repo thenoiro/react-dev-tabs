@@ -6,7 +6,7 @@ import useToggle, { UseToggleValues } from 'hooks/useToggle.hook';
 const delay = 500;
 
 const useOverlapStateToggle = (): UseToggleValues => {
-  const [open, toggleOpen] = useToggle(true);
+  const [open, toggleOpen] = useToggle(false);
 
   // Open modal on shifts press
   useEffect(() => {
