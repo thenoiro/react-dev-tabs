@@ -9,6 +9,14 @@ const App = () => {
   const tabs = useMemo(() => {
     switch (testCase) {
       case 'usual':
+        return [
+          {
+            type: 'components',
+            label: 'Legacy',
+            variant: 'inside',
+            modules: () => import('./legacy'),
+          },
+        ];
       case 'multiple-tabs':
       case 'no-tabs':
       default:

@@ -63,7 +63,11 @@ const Header = (props: HeaderProps) => {
         React Dev Tabs
       </Text>
 
-      <IconButton onClick={toggle}>
+      <IconButton
+        width={8}
+        height={5}
+        onClick={toggle}
+      >
         <CloseIcon />
       </IconButton>
     </div>
