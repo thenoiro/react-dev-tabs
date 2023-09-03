@@ -98,7 +98,7 @@ const App = () => {
             style={{
               position: 'absolute',
               zIndex: 950,
-              background: 'red',
+              background: 'blue',
               color: 'white',
               width: '400px',
               height: '200px',
