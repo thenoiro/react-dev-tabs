@@ -1,32 +1,26 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const root = __dirname;
 
 module.exports = {
   mode: 'development',
-  entry: path.resolve(__dirname, './src/index.js'),
+  entry: path.resolve(root, './dev/index.js'),
   devtool: 'inline-source-map',
-  output: {
-    path: path.resolve(__dirname, './public'),
-    filename: 'static/index.js',
-    asyncChunks: true,
-    clean: true,
-    library: {
-      type: 'umd',
-    },
-  },
-  resolve: {
-    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
-    extensions: ['', '.js', '.jsx'],
-  },
   plugins: [
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      title: 'DevTools',
+      title: 'react-dev-tools',
       inject: 'body',
+      favicon: path.resolve(root, './static/favicon.ico'),
     }),
   ],
+  resolve: {
+    extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
+    alias: {
+      'react-dev-tabs': path.resolve(root, './build'),
+      '@': [path.resolve(root, './dev')],
+    },
+  },
   module: {
     rules: [
       {
@@ -45,39 +39,13 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
-      },
-      {
-        test: /\.svg$/,
-        use: [
-          {
-            loader: require.resolve('@svgr/webpack'),
-            options: {
-              prettier: false,
-              svgo: false,
-              svgoConfig: {
-                plugins: [{ removeViewBox: false }],
-              },
-              titleProp: true,
-              ref: true,
-            },
-          },
-          {
-            loader: require.resolve('file-loader'),
-            options: {
-              name: 'static/media/[name].[hash].[ext]',
-            },
-          },
-        ],
-        issuer: {
-          and: [/\.(ts|tsx|js|jsx|md|mdx)$/],
-        },
+        test: /\.(png|jpe?g|gif|svg|webp)$/i,
+        type: 'asset/resource',
       },
     ],
   },
   devServer: {
-    port: 3030,
+    port: 3141,
     hot: true,
     open: false,
   },

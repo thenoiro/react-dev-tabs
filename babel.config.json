@@ -1,0 +1,15 @@
+{
+  "presets": [
+    "@babel/preset-env",
+    ["@babel/preset-react", {
+      "runtime": "automatic"
+    }],
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["lib"],
+      "extensions": [".ts", ".tsx", ".js", ".jsx"]
+    }]
+  ]
+}
