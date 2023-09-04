@@ -16,6 +16,28 @@ const App = () => {
             variant: 'inside',
             modules: () => import('./legacy'),
           },
+          {
+            type: 'assets',
+            label: 'Cats Images',
+            modules: () => import('./images'),
+          },
+          {
+            type: 'assets',
+            label: 'Cats Images (100)',
+            modules: () => import('./images'),
+            size: 100,
+          },
+          {
+            type: 'assets',
+            label: 'Cats Images (500)',
+            modules: () => import('./images'),
+            size: 500,
+          },
+          {
+            type: 'components',
+            label: 'Many Components',
+            modules: () => import('./many_components'),
+          },
         ];
       case 'multiple-tabs':
       case 'no-tabs':

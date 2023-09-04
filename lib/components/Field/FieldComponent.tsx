@@ -80,6 +80,11 @@ const FieldComponent = <PropType extends unknown>(
     },
   }));
 
+  const textClass = useCss(() => ({
+    whiteSpace: 'nowrap',
+    maxWidth: 300,
+  }));
+
   const defaultRadioClass = useCss(() => ({
     textDecoration: 'underline',
   }));
@@ -98,6 +103,7 @@ const FieldComponent = <PropType extends unknown>(
 
       {options.map((opt, index) => {
         const v = getStringifiedValue(opt);
+        const isDefault = def !== 'undefined' && def === v;
 
         return (
           <label key={`${v}_${index}`} className={labelClass}>
@@ -111,9 +117,10 @@ const FieldComponent = <PropType extends unknown>(
             />
 
             <Text
+              title={v}
               size="small"
               variant="code"
-              className={cx(def !== 'undefined' && def === v && defaultRadioClass)}
+              className={cx(textClass, isDefault && defaultRadioClass)}
             >
               {v}
             </Text>

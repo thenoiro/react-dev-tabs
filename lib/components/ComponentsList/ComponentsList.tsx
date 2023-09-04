@@ -28,13 +28,14 @@ const ComponentsList = (props: ComponentsListProps) => {
   const { state, toggle } = useListState();
 
   const rootClass = useCss((theme) => ({
+    display: 'flex',
+    flexDirection: 'column',
     height: '100%',
     width: '100%',
     maxWidth: 350,
     left: 0,
     transitionDuration: '200ms',
     overflow: 'hidden',
-    padding: theme.size(1, 0, 2),
     borderRight: `1px solid ${theme.color(
       theme.palette.accent.primary.color,
       theme.palette.accent.primary.contrast.low,
@@ -63,8 +64,13 @@ const ComponentsList = (props: ComponentsListProps) => {
       maxWidth: '100dvw',
       left: state ? 0 : '-101dvw',
       boxShadow: 'none',
-      padding: 0,
     },
+  }));
+
+  const listClass = useCss((theme) => ({
+    flexGrow: 1,
+    overflow: 'auto',
+    padding: theme.size(1, 0, 2),
   }));
 
   const headerClass = useCss((theme) => ({
@@ -75,7 +81,6 @@ const ComponentsList = (props: ComponentsListProps) => {
       0.15,
     ),
     borderBottom: `1px solid ${theme.palette.accent.primary.color}`,
-    marginBottom: theme.size(1),
 
     [theme.screen.down('mobile')]: {
       display: 'flex',
@@ -122,28 +127,30 @@ const ComponentsList = (props: ComponentsListProps) => {
           </Text>
         </div>
 
-        {options.map((opt) => {
-          return (
-            <Button
-              fullWidth
-              key={opt.value}
-              padding={[1, 2]}
-              title={opt.label}
-              className={buttonClass}
-              variant={value === opt.value ? 'filled' : 'text'}
-              onClick={handleChange(opt.value)}
-            >
-              <Text
-                size="large"
-                weight="bold"
-                variant="code"
-                className={cx(opt.empty && emptyClass)}
+        <div className={listClass}>
+          {options.map((opt) => {
+            return (
+              <Button
+                fullWidth
+                key={opt.value}
+                padding={[1, 2]}
+                title={opt.label}
+                className={buttonClass}
+                variant={value === opt.value ? 'filled' : 'text'}
+                onClick={handleChange(opt.value)}
               >
-                {'<'}{opt.label}{' />'}
-              </Text>
-            </Button>
-          );
-        })}
+                <Text
+                  size="large"
+                  weight="bold"
+                  variant="code"
+                  className={cx(opt.empty && emptyClass)}
+                >
+                  {'<'}{opt.label}{' />'}
+                </Text>
+              </Button>
+            );
+          })}
+        </div>
       </div>
     </ClickAwayListener>
   );
