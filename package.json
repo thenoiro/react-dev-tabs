@@ -7,15 +7,18 @@
     "clear:dist": "rm -rf ./dist",
     "clear:build": "rm -rf ./build",
     "clear": "npm run clear:dist && npm run clear:build",
-    "build:types": "tsc --project tsconfig.types.json",
+
+    "build:types": "tspc --project tsconfig.types.json",
     "build:types:dev": "tsc --project tsconfig.types.dev.json",
     "build:babel": "babel lib --out-dir dist --extensions .ts,.tsx,.js,.jsx",
     "build:dev": "npm run clear:build && babel lib --out-dir build --extensions .ts,.tsx,.js,.jsx && npm run build:types:dev",
     "build": "npm run clear:dist && npm run build:babel && npm run build:types",
+
     "dev:serve": "webpack serve --mode development --env development",
     "dev:watch": "babel --watch lib --out-dir build --extensions .ts,.tsx,.js,.jsx",
     "dev:watch:types": "npm-watch build:types:dev",
     "dev": "npm run build:dev && npm run dev:serve & npm run dev:watch & npm run dev:watch:types",
+
     "pack": "npm run build && npm pack",
     "kill:dev": "sudo kill -9 $(sudo lsof -t -i:3141)",
     "kill": "npm run kill:dev && npm run clear"
@@ -56,7 +59,9 @@
     "html-webpack-plugin": "^5.5.3",
     "npm": "^9.8.1",
     "ts-loader": "^9.4.4",
+    "ts-patch": "^3.0.2",
     "typescript": "^5.1.6",
+    "typescript-transform-paths": "^3.4.6",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
