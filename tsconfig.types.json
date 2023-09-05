@@ -1,0 +1,29 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "paths": {
+      "components/*": ["./components/*"],
+      "hooks/*": ["./hooks/*"],
+      "theme/*": ["./theme/*"],
+      "types/*": ["./types/*"],
+      "utils/*": ["./utils/*"]
+    },
+    "outDir": "dist",
+    "declaration": true,
+    "declarationMap": true,
+    "isolatedModules": false,
+    "noEmit": false,
+    "allowJs": false,
+    "emitDeclarationOnly": true,
+    "plugins": [
+      {
+        "transform": "typescript-transform-paths"
+      },
+      {
+        "transform": "typescript-transform-paths",
+        "afterDeclarations": true,
+        "exclude": ["**/node_modules/**"]
+      }
+    ]
+  }
+}

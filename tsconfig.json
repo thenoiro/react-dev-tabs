@@ -1,0 +1,19 @@
+{
+  "include": ["lib/**/*"],
+  "compilerOptions": {
+    "baseUrl": "./lib",
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "strict": true,
+    "module": "ES2020",
+    "moduleResolution": "Node",
+    "declaration": true,
+    "outDir": "dist",
+    "jsx": "react-jsx",
+  }
+}

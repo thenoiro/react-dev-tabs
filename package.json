@@ -1,11 +1,30 @@
 {
   "name": "react-dev-tabs",
-  "version": "0.3.5",
+  "version": "0.4.0",
   "description": "React UI helper for development",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "webpack serve --mode development --env development",
-    "build": "babel src/lib/ --out-dir dist --copy-files"
+    "clear:dist": "rm -rf ./dist",
+    "clear:build": "rm -rf ./build",
+    "clear": "npm run clear:dist && npm run clear:build",
+
+    "build:types": "tspc --project tsconfig.types.json",
+    "build:types:dev": "tsc --project tsconfig.types.dev.json",
+    "build:babel": "babel lib --out-dir dist --extensions .ts,.tsx,.js,.jsx",
+    "build:dev": "npm run clear:build && babel lib --out-dir build --extensions .ts,.tsx,.js,.jsx && npm run build:types:dev",
+    "build": "npm run clear:dist && npm run build:babel && npm run build:types",
+
+    "dev:serve": "webpack serve --mode development --env development",
+    "dev:watch": "babel --watch lib --out-dir build --extensions .ts,.tsx,.js,.jsx",
+    "dev:watch:types": "npm-watch build:types:dev",
+    "dev": "npm run build:dev && npm run dev:serve & npm run dev:watch & npm run dev:watch:types",
+
+    "pack": "npm run build && npm pack",
+    "kill:dev": "sudo kill -9 $(sudo lsof -t -i:3141)",
+    "kill": "npm run kill:dev && npm run clear"
+  },
+  "watch": {
+    "build:types:dev": "lib/**/*"
   },
   "keywords": [
     "react",
@@ -21,26 +40,33 @@
   },
   "homepage": "https://github.com/thenoiro/react-dev-tabs#readme",
   "author": "Bohdan Chernovol",
-  "license": "ISC",
-  "devDependencies": {
-    "@babel/cli": "^7.21.0",
-    "@babel/core": "^7.21.4",
-    "@babel/preset-env": "^7.21.4",
-    "@babel/preset-react": "^7.18.6",
-    "@svgr/webpack": "^7.0.0",
-    "babel-loader": "^9.1.2",
-    "babel-plugin-module-resolver": "^5.0.0",
-    "clean-webpack-plugin": "^4.0.0",
-    "css-loader": "^6.7.3",
-    "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^5.5.0",
-    "style-loader": "^3.3.2",
-    "webpack": "^5.78.0",
-    "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.13.2"
-  },
+  "license": "MIT",
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.22.9",
+    "@babel/core": "^7.22.9",
+    "@babel/preset-env": "^7.22.9",
+    "@babel/preset-react": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
+    "@types/node": "^20.4.2",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.7",
+    "babel-loader": "^9.1.3",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "html-webpack-plugin": "^5.5.3",
+    "npm": "^9.8.1",
+    "ts-loader": "^9.4.4",
+    "ts-patch": "^3.0.2",
+    "typescript": "^5.1.6",
+    "typescript-transform-paths": "^3.4.6",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "@emotion/css": "^11.11.2"
   }
 }
