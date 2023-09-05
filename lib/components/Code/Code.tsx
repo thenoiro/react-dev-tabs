@@ -6,7 +6,7 @@ const CodeComponent = lazy(() => import('./CodeComponent'));
 
 const Code = (props: CodeComponentProps) => {
   return (
-    <Suspense>
+    <Suspense fallback={null}>
       <CodeComponent {...props} />
     </Suspense>
   );

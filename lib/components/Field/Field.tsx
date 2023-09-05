@@ -6,7 +6,7 @@ const FieldComponent = lazy(() => import('./FieldComponent'));
 
 const Field = <PropType extends unknown>(props: FieldComponentProps<PropType>) => {
   return (
-    <Suspense>
+    <Suspense fallback={null}>
       <FieldComponent {...props} />
     </Suspense>
   );

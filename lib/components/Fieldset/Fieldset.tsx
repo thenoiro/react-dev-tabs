@@ -8,7 +8,7 @@ const FieldsetComponent = lazy(() => import('./FieldsetComponent'));
 
 const Fieldset = (props: FieldsetComponentProps) => {
   return (
-    <Suspense>
+    <Suspense fallback={null}>
       <FieldsetComponent {...props} />
     </Suspense>
   );

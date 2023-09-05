@@ -65,7 +65,7 @@ const ComponentsBody = (props: ComponentsBodyProps) => {
         .reduce((acc, [name, value]) => {
           const firstChar = name[0];
           const wrongName = firstChar !== firstChar.toUpperCase();
-          const wrongType = typeof value !== 'function';
+          const wrongType = typeof value !== 'function' && typeof value !== 'object';
 
           if (wrongName || wrongType) {
             return acc;

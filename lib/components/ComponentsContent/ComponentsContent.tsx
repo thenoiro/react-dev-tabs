@@ -48,7 +48,7 @@ const ComponentsContent = (props: ComponentsContentProps) => {
 
       {!!Component && (
         <div className={demoClass}>
-          <Suspense>
+          <Suspense fallback={null}>
             <Component />
           </Suspense>
         </div>

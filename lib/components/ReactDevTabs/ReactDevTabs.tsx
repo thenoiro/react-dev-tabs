@@ -18,7 +18,7 @@ const ReactDevTabs = (props: ReactDevTabsProps) => {
     return null;
   }
   return (
-    <Suspense>
+    <Suspense fallback={null}>
       <DevKit {...rest} />
     </Suspense>
   );
