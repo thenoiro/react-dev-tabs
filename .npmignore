@@ -1,4 +1,5 @@
-/node_modules
-/dev
-/static
-webpack.config.js
+*
+
+dist
+package.json
+README.md
