@@ -1,271 +1,221 @@
-In development (alpha).
+### In development! (alpha)
+---
 
-Simple tool to create components/assets developers documentation for your react application. It appears only in development environment, and uses Suspense and react lazy loading to render assets and components demos. Your production build will contain all that code in a separate chunks, that will never appears.
+**React-Dev-Tabs** is a small and lightweight library, that helps organize developers UI library, make components demos, and play with their properties. Also it allows to create assets (images) library.
 
-## ```<DevTabs />```
-Most simple demo of useage:
+# Motivation
+Common situation - you are open ```components``` folder, and see something like this:
+```
+components
+|- ...
+|- Dropzone
+|- DropzoneField
+|- DropArea
+|- FileInput
+|- ...
+```
+What are these components? How do they look? What's the difference between some of them?
+Another case is adding an image from a design, when you are not sure whether this image has already been used in the project or not.
+
+In both cases **it would be nice to have a place with all the components demos, or a list of all the images used in a project**.
+
+# Step-by-step
+
+## DevTabs
+
+First of all you need to add DevTabs somewhere in your project:
 
 ```jsx
 import DevTabs from 'react-dev-tabs';
 
-const App = () => {
-  return (
-    <div>
-      <DevTabs
-        zIndex={1200} // optional, 1000 by default
-        tabs={[
-          {
-            type: 'components',
-            label: 'Components List',
-            module: () => import('components'),
-          },
-          {
-            type: 'assets',
-            label: 'Images',
-            path: 'assets/images',
-            module: () => import('assets/images'),
-          },
-          {
-            size: 50, // asset size (200 by default)
-            type: 'assets',
-            label: 'Icons',
+// Assuming this is your application root component
+const App = () => (
+  <div>
+    {/* Other components here */}
 
-            // optional, will be used to consturct import
-            // string on asset click
-            path: 'assets/icons',
-            module: () => import('assets/icons'),
-          },
-        ]}
-      >
-    </div>
-  );
-};
+    <DevTabs />
+  </div>
+);
 ```
+Now you need to press and hold both Shifts on your keyboard for 500ms to show React-Dev-Tabs overlap. At this moment it will show "No tabs provided".
 
-To show DevTabs press both shifts.
+**React-Dev-Tabs** designed to exclude its content from main bundle. By default it will show up and load its content with ```React.Suspense``` only if ```process.env.NODE_ENV === 'development'```.
 
-At this moment usefull only if you following re-export pattern (all your components or assets located in a particular directory, and re-exported from index file). E.g. your assets folder have to look like:
+You can pass your own condition (boolean) with ```visible``` property, or simply render ```<DevTabs />``` by condition.
+
+
+## Adding components demos
+
+Each component demo is a usual React component. It is up to you how it will look like. But to add all of your demos you have to use **barrel exports pattern**. That means you have some folder with ```index.js``` inside of it with all your demos re-exported. E.g.:
 
 ```js
-export { default as main_background } from './main_background.webp';
-export { default as landing_decoration } from './landing_decoration.webp';
-// etc
+// [src/demo/index.js]
+export { Button } from './Button';
+export { Tabs } from './Tabs';
+// or
+export { default as Card } from './Card';
+export { default as Avatar } from './Avatar';
 ```
 
-In case of components:
+Using with **DevTabs** component:
 
 ```jsx
-export { default as SearchField } from './SearchField';
-export { default as ProductCard } from './ProductCard';
-export * from './ProductCard';
-// etc, only instances that started with a uppercase letter
-// will be used in the components tab
+<DevTabs
+  tabs={[
+    {
+      type: 'components',
+      label: 'Basic Components',
+      modules: () => import('./demo'),
+    },
+  ]}
+/>
 ```
 
-In case of assets tab your images will be rendered directly in the tab.
+Using dynamic import allows you to exclude your demo components from the main package. **Don't accidentally import them somewhere else**.
 
-## ```<Component.Demo />```
+You can have more tabs of ```components``` type.
 
-In case of components empty containers will be rendered for them by default. You still need to create a **Demo** for each component manually.
+## Adding assets (images)
 
-Let sey we have ```<Button />``` component:
+It is almost the same as for components, and yes, you still need to use **barrel exports pattern**. E.g.:
 
-```jsx
-// components/Button/Button.jsx
-const Button = (props) => {
-  const { children, color, size, icon, onClick } = props;
+```js
+// [src/assets/index.js]
 
-  return (
-    <button
-      onClick={onClick}
-      style={{
-        color: 'white',
-        backgroundColor: color,
-        height: size,
-        padding: '4px 16px',
-        borderRadius: '4px',
-      }}
-    >
-      {children}
-      {icon}
-    </button>
-  );
-};
+export { default as logo } from './logo.png';
+export { default as bg_decoration } from './bg-decoration.gif';
 
-export default Button;
+export * from './icons';
+export * from './examples';
 ```
 
+Adding to **DevTabs** component:
+
 ```jsx
-// components/Button/index.js
-export { default } from './Button';
+<DevTabs
+  tabs={[
+    {
+      type: 'assets',
+      label: 'Images',
+      size: 150 // optional, 300 by default
+      modules: () => import('./images'),
+    },
+  ]}
+/>
 ```
 
-To create a Demo that will appear in your DevTabs you need to create Demo component:
-```jsx
-// components/Button/Button.demo.jsx
-import Button from './Button.jsx';
+## Writing demo component
 
-const Demo = () => {
-  return (
-    <div>
-      <p>This component represents project main button!</p>
+As mentioned above, demo component is usual React component. But **React-Dev-Tabs** also has several additional tools that will help expand the capabilities of the demo component.
 
-      <div>
-        <Button>Project Button</Button>
-      </div>
-    </div>
-  );
-};
+### Fieldset, Field
 
-export default Demo;
-```
-
-Now you need to add this demo component as a subcomponent to a Button component:
-```jsx
-// components/Button/Button.jsx
-import { lazy } from 'react';
-
-const Button = (props) => {
-  const { children, color = 'black', size, icon, onClick } = props;
-
-  return (
-    <button
-      onClick={onClick}
-      style={{
-        color: 'white',
-        backgroundColor: color,
-        height: size,
-        padding: '4px 16px',
-        borderRadius: '4px',
-      }}
-    >
-      {children}
-      {icon}
-    </button>
-  );
-};
-// This condition allows exclude demo for production build
-if (process.env.NODE_ENV === 'development') {
-  Button.Demo = lazy(() => import('./Button.demo.jsx'));
-}
-
-export default Button;
-```
-
-Thats it. Now (after reloading once) you will see your component demo in DevTabs.
-
-## ```<Fieldset />```
-To make your demo more interactive and helpful, you can use this helper component:
+```<Fieldset />``` component gives an ability to play with component properties:
 
 ```jsx
-// components/Button/Button.demo.jsx
+// [src/demo/Button/index.jsx]
 import { useState } from 'react';
 import { Fieldset, Field } from 'react-dev-tabs';
-import Button from './Button.jsx';
+import Button from 'components/Button';
 
-const Demo = () => {
-  const [size, setSize] = useState();
+export default () => {
   const [color, setColor] = useState();
-  const [children, setChildren] = useState('Project Button');
+  const [size, setSize] = useState();
+  const [disabled, setDisabled] = useState();
 
   return (
     <div>
-      <p>This component represents project main button!</p>
-
       <Fieldset>
-         {/* Field is the same as Fieldset.Field */}
-        <Field
-          legend="size"
-          value={size}
-          onChange={setSize}
-          options={[undefined, 10, 20, 40, 50]}
-        />
-        <Field
-          legend="children"
-          value={children}
-          onChange={setChildren}
-          options={['Project Button', 'Project Button with a long label']}
-        />
         <Field
           legend="color"
           value={color}
           onChange={setColor}
-          options={[undefined, 'red', 'blue', 'white', 'black']}
-          default="black"
+          options={[undefined, 'primary', 'secondary']}
+          default="primary"
+        />
+        <Field
+          legend="size"
+          value={size}
+          onChange={setSize}
+          options={[undefined, 'small', 'medium', 'large']}
+        />
+        <Field
+          legend="disabled"
+          value={disabled}
+          onChange={setDisabled}
+          options={[undefined, true, false]}
         />
       </Fieldset>
 
       <div>
-        <Button color={color} size={size}>
-          {children}
+        <Button color={color} size={size} disabled={disabled}>
+          Button Demo
         </Button>
       </div>
     </div>
   );
 };
-
-export default Demo;
 ```
 
-Now you can play with your properties.
+```<Field />``` component also available as ```<Fieldset.Field />```.
 
-## ```<Code />```
+### Code
 
-This helper allows make a code example. It sensetive to it's content whitespaces, and will try its best to display code example in your formatting.
+Creates code example block. Assepts a string as a children. It will do its best to properly format the code offsets.
 
 ```jsx
-// components/Button/Button.demo.jsx
+// [src/demo/Button/index.jsx]
 import { useState } from 'react';
 import { Fieldset, Field, Code } from 'react-dev-tabs';
-import Button from './Button.jsx';
+import Button from 'components/Button';
 
-const Demo = () => {
-  const [size, setSize] = useState();
+export default () => {
   const [color, setColor] = useState();
-  const [children, setChildren] = useState('Project Button');
+  const [size, setSize] = useState();
+  const [disabled, setDisabled] = useState();
 
   return (
     <div>
-      <p>This component represents project main button!</p>
+      <Fieldset>
+        <Field
+          legend="color"
+          value={color}
+          onChange={setColor}
+          options={[undefined, 'primary', 'secondary']}
+          default="primary"
+        />
+        <Field
+          legend="size"
+          value={size}
+          onChange={setSize}
+          options={[undefined, 'small', 'medium', 'large']}
+        />
+        <Field
+          legend="disabled"
+          value={disabled}
+          onChange={setDisabled}
+          options={[undefined, true, false]}
+        />
+      </Fieldset>
 
       <Code>
         {`
-          <Button color={${color}} size={${size}}>
-            ${children}
+          <Button
+            color={${color}}
+            size={${size}}
+            disabled={${disabled}}
+          >
+            Button Demo
           </Button>
         `}
       </Code>
 
-      <Fieldset>
-        <Field
-          legend="size"
-          value={size}
-          onChange={setSize}
-          options={[undefined, 10, 20, 40, 50]}
-        />
-        <Field
-          legend="children"
-          value={children}
-          onChange={setChildren}
-          options={['Project Button', 'Project Button with a long label']}
-        />
-        <Field
-          legend="color"
-          value={color}
-          onChange={setColor}
-          options={[undefined, 'red', 'blue', 'white', 'black']}
-          default="black"
-        />
-      </Fieldset>
-
       <div>
-        <Button color={color} size={size}>
-          {children}
+        <Button color={color} size={size} disabled={disabled}>
+          Button Demo
         </Button>
       </div>
     </div>
   );
 };
-
-export default Demo;
 ```
