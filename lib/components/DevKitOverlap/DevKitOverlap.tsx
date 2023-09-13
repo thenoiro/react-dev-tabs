@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { DevKitTab } from 'types';
 import useCss from 'hooks/useCss.hook';
@@ -39,6 +39,10 @@ const DevKitOverlap = (props: DevKitOverlapProps) => {
     borderTop: `2px solid ${theme.palette.accent.primary.color}`,
   }));
 
+  const htmlBodyClass = useCss({
+    overflow: 'hidden !important',
+  });
+
   const options = useMemo(() => {
     return tabs.map((t, index) => {
       return {
@@ -47,6 +51,14 @@ const DevKitOverlap = (props: DevKitOverlapProps) => {
       };
     });
   }, [tabs]);
+
+  useEffect(() => {
+    document.body.classList.toggle(htmlBodyClass, open);
+
+    return () => {
+      document.body.classList.toggle(htmlBodyClass, false);
+    };
+  }, [open, htmlBodyClass]);
 
   return (
     <Overlap zIndex={zIndex} open={open}>

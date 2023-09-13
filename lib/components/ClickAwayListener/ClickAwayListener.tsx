@@ -1,4 +1,6 @@
-import { Children, cloneElement, useCallback, useEffect, useRef } from 'react';
+import { Children, cloneElement, useEffect, useRef } from 'react';
+
+import useCombineRefs from 'hooks/useCombineRefs.hook';
 
 interface ClickAwayListenerProps {
   children: React.ReactElement;
@@ -9,21 +11,9 @@ interface ClickAwayListenerProps {
 const ClickAwayListener = (props: ClickAwayListenerProps) => {
   const { children, onClickAway, disabled } = props;
 
-  const rootRef = useRef<HTMLElement | null>(null);
   const child = Children.only(children);
-
-  const handleRef = useCallback((el: HTMLElement) => {
-    rootRef.current = el;
-    const originRef = child.props.ref;
-
-    if (typeof originRef === 'function') {
-      originRef(el);
-      return;
-    }
-    if (typeof originRef === 'object') {
-      originRef.current = el;
-    }
-  }, [child]);
+  const rootRef = useRef<HTMLElement | null>(null);
+  const handleRef = useCombineRefs(rootRef, child.props.ref);
 
   useEffect(() => {
     const { current: element } = rootRef;

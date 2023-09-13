@@ -43,6 +43,9 @@ Now you need to press and hold both Shifts on your keyboard for 500ms to show Re
 
 You can pass your own condition (boolean) with ```visible``` property, or simply render ```<DevTabs />``` by condition.
 
+### Pitfalls
+
+React-Dev-Tabs works NOT in isolation. Your demo components will rely on environment. So, if you have, for example, theme provider, ```<DevTabs />``` component must have an access to its context.
 
 ## Adding components demos
 
@@ -71,40 +74,43 @@ Using with **DevTabs** component:
 />
 ```
 
-Using dynamic import allows you to exclude your demo components from the main package. **Don't accidentally import them somewhere else**.
+Using dynamic import allows you to exclude your demo components from the main bundle. **Don't accidentally import them somewhere else**.
 
-You can have more tabs of ```components``` type.
+### Another way (not recommended):
 
-## Adding assets (images)
+In case you're already use **barrel exports** for your components, you can place your demos directly next to component itself. E.g.:
 
-It is almost the same as for components, and yes, you still need to use **barrel exports pattern**. E.g.:
+```jsx
+// [src/components/Button/index.jsx]
+import { lazy } from 'react';
 
-```js
-// [src/assets/index.js]
+expoprt const Button = () => {
+  // ...component code and layout here
+};
 
-export { default as logo } from './logo.png';
-export { default as bg_decoration } from './bg-decoration.gif';
-
-export * from './icons';
-export * from './examples';
+// This condition allows to exclude demo from bundle when it's not needed
+// If you doing so, this is a good idea to move this condition to a separate
+// constant instead.
+if (process.env.NODE_ENV === 'development') {
+  Button.Demo = lazy(() => import('./Button.demo.jsx'));
+}
 ```
 
-Adding to **DevTabs** component:
-
+In this case tab settings must have ```variant``` property:
 ```jsx
 <DevTabs
   tabs={[
     {
-      type: 'assets',
-      label: 'Images',
-      size: 150 // optional, 300 by default
-      modules: () => import('./images'),
+      variant: 'inside'
+      type: 'components',
+      label: 'Basic Components',
+      modules: () => import('./components'),
     },
   ]}
 />
 ```
 
-## Writing demo component
+## Writing demo components
 
 As mentioned above, demo component is usual React component. But **React-Dev-Tabs** also has several additional tools that will help expand the capabilities of the demo component.
 
@@ -218,4 +224,33 @@ export default () => {
     </div>
   );
 };
+```
+
+## Adding assets (images)
+
+It is almost the same as for components, and yes, you still need to use **barrel exports pattern**. E.g.:
+
+```js
+// [src/assets/index.js]
+
+export { default as logo } from './logo.png';
+export { default as bg_decoration } from './bg-decoration.gif';
+
+export * from './icons';
+export * from './examples';
+```
+
+Adding to **DevTabs** component:
+
+```jsx
+<DevTabs
+  tabs={[
+    {
+      type: 'assets',
+      label: 'Images',
+      size: 150 // optional, each image size, 300 by default
+      modules: () => import('./images'),
+    },
+  ]}
+/>
 ```

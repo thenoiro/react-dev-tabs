@@ -140,6 +140,8 @@ const App = () => {
             Z Index indicator (950)
           </div>
         </div>
+
+        <div style={{ background: 'silver', width: 10, height: '3800px' }} />
       </div>
 
       <DevTabs

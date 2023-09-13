@@ -9,7 +9,7 @@ module.exports = {
   devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'react-dev-tools',
+      title: 'React-Dev-Tabs',
       inject: 'body',
       favicon: path.resolve(root, './static/favicon.ico'),
     }),
